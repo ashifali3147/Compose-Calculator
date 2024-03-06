@@ -25,7 +25,7 @@ import com.tlw.composeCalculator.ui.theme.DarkPink
 fun CalculatorUI(state: CalculatorState, modifier: Modifier = Modifier, buttonSpacing: Dp = 8.dp, onAction: (CalculatorAction) -> Unit) {
     Box(
         modifier = modifier
-            .background(Color.DarkGray)
+            .background(Color.White)
             .padding(15.dp),
         contentAlignment = Alignment.BottomCenter
     ) {
@@ -37,7 +37,7 @@ fun CalculatorUI(state: CalculatorState, modifier: Modifier = Modifier, buttonSp
             verticalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
             Text(
-                text = "${state.number1} ${state.operation ?: ""} ${state.number2}",
+                text = "${state.number1}${state.operation?.symbols ?: ""}${state.number2}",
                 textAlign = TextAlign.Right,
                 modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp),
                 fontSize = 36.sp,
@@ -236,7 +236,7 @@ fun CalculatorUI(state: CalculatorState, modifier: Modifier = Modifier, buttonSp
                         .aspectRatio(1f)
                         .weight(1f),
                     onclick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Subtract))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Add))
                     }
                 ){}
             }
@@ -252,7 +252,7 @@ fun CalculatorUI(state: CalculatorState, modifier: Modifier = Modifier, buttonSp
                         .aspectRatio(1f)
                         .weight(1f),
                     onclick = {
-                        onAction(CalculatorAction.NumberEnter("00".toInt()))
+                        onAction(CalculatorAction.NumberDoubleZero("00"))
                     }
                 ){}
 
@@ -285,7 +285,7 @@ fun CalculatorUI(state: CalculatorState, modifier: Modifier = Modifier, buttonSp
                         .aspectRatio(1f)
                         .weight(1f),
                     onclick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Subtract))
+                        onAction(CalculatorAction.Calculate)
                     }
                 ){}
             }

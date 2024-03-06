@@ -40,6 +40,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     CalculatorTheme {
-        CalculatorUI(state = CalculatorState("12","10", "+"), modifier = Modifier.fillMaxHeight(), onAction = {})
+        CalculatorUI(state = CalculatorState("12","10"), modifier = Modifier.fillMaxHeight(), onAction = {})
     }
 }

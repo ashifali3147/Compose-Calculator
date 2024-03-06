@@ -1,9 +1,11 @@
 package com.tlw.composeCalculator
 
-sealed class CalculatorOperation {
-    object Add: CalculatorOperation()
-    object Subtract: CalculatorOperation()
-    object Multiply: CalculatorOperation()
-    object Division: CalculatorOperation()
-    object Remainder: CalculatorOperation()
+import java.text.DateFormatSymbols
+
+sealed class CalculatorOperation(val symbols: String) {
+    object Add: CalculatorOperation("+")
+    object Subtract: CalculatorOperation("-")
+    object Multiply: CalculatorOperation("x")
+    object Division: CalculatorOperation("/")
+    object Remainder: CalculatorOperation("%")
 }
