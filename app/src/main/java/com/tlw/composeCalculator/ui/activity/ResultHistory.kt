@@ -3,24 +3,29 @@ package com.tlw.composeCalculator.ui.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.tlw.composeCalculator.data.model.ResultEntity
+import com.tlw.composeCalculator.ui.customUI.ResultHistoryUI
 import com.tlw.composeCalculator.ui.theme.CalculatorTheme
+import com.tlw.composeCalculator.ui.viewmodel.ResultHistoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class ResultHistory : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             CalculatorTheme {
                 // A surface container using the 'background' color from the theme
+                val viewModel = viewModel<ResultHistoryViewModel>()
+                val result =  viewModel.getData()
 
+
+                    ResultHistoryUI(result)
             }
         }
     }
@@ -38,6 +43,6 @@ fun Greeting2(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview3() {
     CalculatorTheme {
-        Greeting2("Android")
+//        ResultHistoryUI(mutableListOf(ResultEntity()))
     }
 }

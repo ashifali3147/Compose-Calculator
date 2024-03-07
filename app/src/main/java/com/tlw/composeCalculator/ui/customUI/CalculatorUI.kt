@@ -1,5 +1,6 @@
 package com.tlw.composeCalculator.ui.customUI
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -29,6 +31,7 @@ import com.tlw.composeCalculator.ui.events.CalculatorAction
 import com.tlw.composeCalculator.ui.events.CalculatorOperation
 import com.tlw.composeCalculator.R
 import com.tlw.composeCalculator.data.model.CalculatorState
+import com.tlw.composeCalculator.ui.activity.ResultHistory
 import com.tlw.composeCalculator.ui.theme.DarkYellow
 
 @Composable
@@ -38,6 +41,7 @@ fun CalculatorUI(
     buttonSpacing: Dp = 8.dp,
     onAction: (CalculatorAction) -> Unit
 ) {
+    val context = LocalContext.current
     Box(
         modifier = modifier
             .fillMaxHeight()
@@ -54,7 +58,7 @@ fun CalculatorUI(
                 .align(Alignment.TopStart)
                 .offset(y = 20.dp)
                 .clickable {
-
+                    context.startActivity(Intent(context, ResultHistory::class.java))
                 })
         Column(
             Modifier
