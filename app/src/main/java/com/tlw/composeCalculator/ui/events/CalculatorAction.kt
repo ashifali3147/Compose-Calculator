@@ -1,4 +1,4 @@
-package com.tlw.composeCalculator
+package com.tlw.composeCalculator.ui.events
 
 sealed class CalculatorAction {
     data class NumberEnter(val number: Int): CalculatorAction()

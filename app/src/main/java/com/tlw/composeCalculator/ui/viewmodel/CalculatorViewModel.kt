@@ -1,11 +1,22 @@
-package com.tlw.composeCalculator
+package com.tlw.composeCalculator.ui.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.tlw.composeCalculator.data.model.CalculatorState
+import com.tlw.composeCalculator.data.model.ResultEntity
+import com.tlw.composeCalculator.data.repository.ResultRepository
+import com.tlw.composeCalculator.ui.events.CalculatorAction
+import com.tlw.composeCalculator.ui.events.CalculatorOperation
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CalculatorViewModel : ViewModel() {
+@HiltViewModel
+class CalculatorViewModel @Inject constructor(private val repository: ResultRepository): ViewModel() {
+//class CalculatorViewModel : ViewModel() {
     var state by mutableStateOf(CalculatorState())
         private set
 
@@ -52,6 +63,9 @@ class CalculatorViewModel : ViewModel() {
                 CalculatorOperation.Remainder -> number1 % number2
                 CalculatorOperation.Subtract -> number1 - number2
                 null -> return
+            }
+            viewModelScope.launch {
+                repository.addResult(ResultEntity(state.number1, state.number2, state.operation!!.symbols, result.toString().take(15)))
             }
             state = state.copy(number1 = result.toString().take(15), number2 = "", operation = null)
         }

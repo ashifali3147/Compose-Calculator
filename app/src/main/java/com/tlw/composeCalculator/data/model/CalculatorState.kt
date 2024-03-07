@@ -1,4 +1,6 @@
-package com.tlw.composeCalculator
+package com.tlw.composeCalculator.data.model
+
+import com.tlw.composeCalculator.ui.events.CalculatorOperation
 
 data class CalculatorState(
     val number1: String = "",
