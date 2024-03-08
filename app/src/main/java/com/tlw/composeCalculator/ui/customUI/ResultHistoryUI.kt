@@ -1,6 +1,5 @@
 package com.tlw.composeCalculator.ui.customUI
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,11 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -22,19 +19,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tlw.composeCalculator.data.model.ResultEntity
 import com.tlw.composeCalculator.ui.theme.CalculatorTheme
+import androidx.compose.runtime.State
 
 @Composable
-fun ResultHistoryUI(_result: MutableState<MutableList<ResultEntity>>) {
+fun ResultHistoryUI(resultState: State<List<ResultEntity>>) {
+    val result = resultState.value
+
     Row(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        val result by _result
-        Log.e("sldkvnslkvn", "Size: ${result.size}")
-        if (result.size > 0) {
+        if (result.isNotEmpty()) {
             LazyColumn {
-                items(result.size, key = { result[it].id!! }) { position ->
+                items(result) { item ->
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -42,7 +40,7 @@ fun ResultHistoryUI(_result: MutableState<MutableList<ResultEntity>>) {
                             .background(Color.White)
                     ) {
                         Text(
-                            text = "${result[position].number1}${result[position].operation}${result[position].number2}",
+                            text = "${item.number1}${item.operation}${item.number2}",
                             textAlign = TextAlign.Right,
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -52,7 +50,7 @@ fun ResultHistoryUI(_result: MutableState<MutableList<ResultEntity>>) {
                             maxLines = 2
                         )
                         Text(
-                            text = "=${result[position].result}",
+                            text = "=${item.result}",
                             textAlign = TextAlign.Right,
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -66,6 +64,7 @@ fun ResultHistoryUI(_result: MutableState<MutableList<ResultEntity>>) {
         }
     }
 }
+
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
