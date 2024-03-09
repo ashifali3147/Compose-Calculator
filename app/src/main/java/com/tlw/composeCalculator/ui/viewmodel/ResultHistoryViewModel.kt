@@ -1,5 +1,6 @@
 package com.tlw.composeCalculator.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tlw.composeCalculator.data.model.ResultEntity
@@ -20,6 +21,15 @@ class ResultHistoryViewModel @Inject constructor(private val repository: ResultR
         viewModelScope.launch {
             repository.getResult().collect { result ->
                 _result.value = result
+            }
+        }
+    }
+
+    fun deleteResult(result: ResultEntity){
+        viewModelScope.launch {
+            repository.deleteResult(result)
+            repository.getResult().collect { _result ->
+                _result.remove(result)
             }
         }
     }
